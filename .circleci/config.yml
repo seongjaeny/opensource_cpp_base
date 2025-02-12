@@ -14,8 +14,12 @@ jobs:
             sudo apt-get update
             sudo apt-get install -y ninja-build clang llvm lcov
             sudo ln -sf $(which llvm-cov) /usr/bin/gcov            
-            sudo snap install cmake --classic
-            sudo ln -sf /snap/bin/cmake /usr/local/bin/cmake            
+            sudo apt-get install -y software-properties-common lsb-release wget
+            wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc | sudo apt-key add -
+            sudo apt-add-repository 'deb https://apt.kitware.com/ubuntu/ focal main'
+            sudo apt-get update
+            sudo apt-get install -y cmake
+            cmake --version
             git clone https://github.com/microsoft/vcpkg.git
             cd vcpkg
             ./bootstrap-vcpkg.sh
