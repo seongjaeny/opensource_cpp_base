@@ -48,7 +48,7 @@ jobs:
           command: |
             cd build
             export LLVM_PROFILE_FILE="default-%p.profraw"
-            ctest --output-on-failure
+            ctest -T Test --output-on-failure
 
       - run:
           name: Generate Coverage Report
@@ -60,6 +60,13 @@ jobs:
             llvm-profdata merge -sparse tests/**/default-*.profraw -o default.profdata
             llvm-cov export -format=lcov ./cpp_base -instr-profile=default.profdata > coverage.info
             genhtml coverage.info --output-directory coverage_report
+
+      - run:
+          name: Debug Test XML Files
+          command: |
+            find build/Testing -name "*.xml"
+            echo "Printing first 50 lines of each Test.xml file:"
+            find build/Testing -type f -name "Test.xml" -exec sh -c 'echo "File: {}"; head -n 50 {}' \;
 
       - store_test_results:
           path: build/Testing
