@@ -48,7 +48,7 @@ jobs:
           command: |
             cd build
             export LLVM_PROFILE_FILE="default-%p.profraw"
-            ctest -T Test --output-on-failure
+            ctest -T Test --output-on-failure --no-compress-output --output-junit junit.xml 
 
       - run:
           name: Generate Coverage Report
@@ -61,12 +61,6 @@ jobs:
             llvm-cov export -format=lcov ./cpp_base -instr-profile=default.profdata > coverage.info
             genhtml coverage.info --output-directory coverage_report
 
-      - run:
-          name: Convert CTest XML to JUnit XML
-          command: |
-            curl -L https://raw.githubusercontent.com/groupon/ctest2junit/master/ctest2junit.py -o ctest2junit.py
-            chmod +x ctest2junit.py
-            python3 ctest2junit.py build/Testing > junit.xml
 
       - store_test_results:
           path: junit.xml
