@@ -63,7 +63,7 @@ jobs:
 
 
       - store_test_results:
-          path: junit.xml
+          path: build/junit.xml
 
       - store_artifacts:
           path: build/coverage_report
