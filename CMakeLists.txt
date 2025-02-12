@@ -15,9 +15,7 @@ endif()
 enable_testing()
 
 add_executable(cpp_base
-        src/utils/Calculator.cpp
-        src/utils/Logger.cpp
-        src/utils/Notifier.cpp
+        src/main.cpp
 )
 
 target_link_libraries(cpp_base PRIVATE components)
