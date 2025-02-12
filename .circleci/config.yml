@@ -12,7 +12,8 @@ jobs:
           name: Install Dependencies
           command: |
             sudo apt-get update
-            sudo apt-get install -y ninja-build cmake clang llvm gcov lcov
+            sudo apt-get install -y ninja-build cmake clang llvm lcov
+            sudo ln -sf $(which llvm-cov) /usr/bin/gcov
             git clone https://github.com/microsoft/vcpkg.git
             cd vcpkg
             ./bootstrap-vcpkg.sh
