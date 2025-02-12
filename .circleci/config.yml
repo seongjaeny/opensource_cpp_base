@@ -52,8 +52,7 @@ jobs:
           name: Generate Coverage Report
           command: |
             cd build
-            lcov --capture --directory . --output-file coverage.info
-            lcov --remove coverage.info '/usr/*' --output-file coverage.info
+            llvm-cov export -format=lcov ./cpp_base > coverage.info
             genhtml coverage.info --output-directory coverage_report
 
       - store_test_results:
