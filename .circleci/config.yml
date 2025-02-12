@@ -61,6 +61,12 @@ jobs:
             llvm-cov export -format=lcov ./cpp_base -instr-profile=default.profdata > coverage.info
             genhtml coverage.info --output-directory coverage_report
 
+      - run:
+          name: Fix Test XML Format
+          command: |
+            find build/Testing -type f -name "Test.xml" -exec sed -i 's/<Site>/<testsuites>/g' {} \;
+            find build/Testing -type f -name "Test.xml" -exec sed -i 's/<\/Site>/<\/testsuites>/g' {} \;
+
       - store_test_results:
           path: build/Testing
 
