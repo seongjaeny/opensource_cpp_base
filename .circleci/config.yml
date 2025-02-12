@@ -12,7 +12,7 @@ jobs:
           name: Install Dependencies
           command: |
             sudo apt-get update
-            sudo apt-get install -y ninja-build clang llvm lcov
+            sudo apt-get install -y ninja-build clang llvm lcov curl python3
             sudo ln -sf $(which llvm-cov) /usr/bin/gcov            
             sudo apt-get install -y software-properties-common lsb-release wget
             wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc | sudo apt-key add -
@@ -62,24 +62,14 @@ jobs:
             genhtml coverage.info --output-directory coverage_report
 
       - run:
-          name: Debug Test XML Files
+          name: Convert CTest XML to JUnit XML
           command: |
-            find build/Testing -name "*.xml"
-            echo "Printing first 50 lines of each Test.xml file:"
-            find build/Testing -type f -name "Test.xml" -exec sh -c 'echo "File: {}"; head -n 50 {}' \;
-
-      - run:
-          name: Fix Test XML Format
-          command: |
-            find build/Testing -type f -name "Test.xml" -exec sed -i 's/<Site/<testsuites/g' {} \;
-            find build/Testing -type f -name "Test.xml" -exec sed -i 's/<\/Site>/<\/testsuites>/g' {} \;
-            find build/Testing -type f -name "Test.xml" -exec sed -i 's/<Testing>/<testsuite>/g; s/<\/Testing>/<\/testsuite>/g' {} \;
-
-            echo "Printing first 50 lines of each Test.xml file:"
-            find build/Testing -type f -name "Test.xml" -exec sh -c 'echo "File: {}"; cat {}' \;
+            curl -L https://raw.githubusercontent.com/groupon/ctest2junit/master/ctest2junit.py -o ctest2junit.py
+            chmod +x ctest2junit.py
+            python3 ctest2junit.py build/Testing > junit.xml
 
       - store_test_results:
-          path: build/Testing
+          path: junit.xml
 
       - store_artifacts:
           path: build/coverage_report
