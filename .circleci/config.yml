@@ -51,7 +51,9 @@ jobs:
       - run:
           name: Generate Coverage Report
           command: |
+            ls -al
             cd build
+            ls -al
             llvm-profdata merge -sparse default.profraw -o default.profdata
             llvm-cov export -format=lcov ./cpp_base -instr-profile=default.profdata > coverage.info
             genhtml coverage.info --output-directory coverage_report
