@@ -73,8 +73,10 @@ jobs:
           command: |
             find build/Testing -type f -name "Test.xml" -exec sed -i 's/<Site/<testsuites/g' {} \;
             find build/Testing -type f -name "Test.xml" -exec sed -i 's/<\/Site>/<\/testsuites>/g' {} \;
+            find build/Testing -type f -name "Test.xml" -exec sed -i 's/<Testing>/<testsuite>/g; s/<\/Testing>/<\/testsuite>/g' {} \;
+
             echo "Printing first 50 lines of each Test.xml file:"
-            find build/Testing -type f -name "Test.xml" -exec sh -c 'echo "File: {}"; head -n 50 {}' \;
+            find build/Testing -type f -name "Test.xml" -exec sh -c 'echo "File: {}"; cat {}' \;
 
       - store_test_results:
           path: build/Testing
