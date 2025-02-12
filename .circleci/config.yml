@@ -47,7 +47,7 @@ jobs:
           name: Run Tests
           command: |
             cd build
-            export LLVM_PROFILE_FILE=default.profraw
+            export LLVM_PROFILE_FILE="default-%p.profraw"
             ctest --output-on-failure
 
       - run:
@@ -56,7 +56,7 @@ jobs:
             ls -al
             cd build
             ls -al
-            llvm-profdata merge -sparse default.profraw -o default.profdata
+            llvm-profdata merge -sparse default-*.profraw -o default.profdata
             llvm-cov export -format=lcov ./cpp_base -instr-profile=default.profdata > coverage.info
             genhtml coverage.info --output-directory coverage_report
 
