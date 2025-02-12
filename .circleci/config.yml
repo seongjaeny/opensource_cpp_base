@@ -46,6 +46,7 @@ jobs:
           name: Run Tests
           command: |
             cd build
+            export LLVM_PROFILE_FILE=default.profraw
             ctest --output-on-failure
 
       - run:
