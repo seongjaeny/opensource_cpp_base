@@ -1,0 +1,63 @@
+version: 2.1
+
+jobs:
+  build:
+    docker:
+      - image: cimg/base:stable
+    working_directory: ~/repo
+    steps:
+      - checkout
+
+      - run:
+          name: Install Dependencies
+          command: |
+            sudo apt-get update
+            sudo apt-get install -y ninja-build cmake clang llvm gcov lcov
+            git clone https://github.com/microsoft/vcpkg.git
+            cd vcpkg
+            ./bootstrap-vcpkg.sh
+            ./vcpkg install gtest
+
+      - run:
+          name: Configure with CMake
+          command: |
+            mkdir -p build
+            cd build
+            cmake -G Ninja \
+              -DCMAKE_BUILD_TYPE=Debug \
+              -DCMAKE_TOOLCHAIN_FILE=${CIRCLE_WORKING_DIRECTORY}/vcpkg/scripts/buildsystems/vcpkg.cmake \
+              -DVCPKG_TARGET_TRIPLET=x64-linux \
+              ..
+
+      - run:
+          name: Build Project
+          command: |
+            cd build
+            ninja
+
+      - run:
+          name: Run Tests
+          command: |
+            cd build
+            ctest --output-on-failure
+
+      - run:
+          name: Generate Coverage Report
+          command: |
+            cd build
+            lcov --capture --directory . --output-file coverage.info
+            lcov --remove coverage.info '/usr/*' --output-file coverage.info
+            genhtml coverage.info --output-directory coverage_report
+
+      - store_test_results:
+          path: build/Testing
+
+      - store_artifacts:
+          path: build/coverage_report
+          destination: coverage_report
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build

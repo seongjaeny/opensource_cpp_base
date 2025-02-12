@@ -1,0 +1,4 @@
+Checks: '*, -clang-analyzer-deadcode.DeadStores'
+WarningsAsErrors: '*'
+HeaderFilterRegex: '.*'
+FormatStyle: file

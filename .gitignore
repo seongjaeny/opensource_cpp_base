@@ -30,3 +30,45 @@
 *.exe
 *.out
 *.app
+
+# Ide Project Files
+.idea/
+*.iml
+*.xml
+*.ipr
+*.iws
+*.ide-workspace
+
+# Build Directories
+cmake-build-*/
+
+# CMake Generated Files
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+
+# Build Artifacts
+build/
+bin/
+*.o
+*.obj
+*.so
+*.a
+*.dylib
+*.exe
+*.out
+
+# Log Files
+*.log
+
+# vcpkg Directories
+vcpkg_installed/
+vcpkg/buildtrees/
+vcpkg/downloads/
+vcpkg/packages/
+
+# OS Specific Files and Temporary Files
+.DS_Store
+Thumbs.db
+*.swp
