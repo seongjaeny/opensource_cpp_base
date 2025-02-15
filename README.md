@@ -116,16 +116,38 @@ The macOS commands are already included in the repository. Run the following scr
 ./scripts/mac/build.sh
 ```
 
-## Setting Up CI/CD
+## Setting Up CI/CD with CircleCI
 
-This repository uses [CircleCI](https://circleci.com/) for continuous integration and deployment. CircleCI automates the build and testing process to ensure the project remains stable. Follow the instructions in the link to set up CircleCI.
+This repository is configured to use CircleCI for continuous integration. The CI/CD pipeline is defined in the `.circleci/config.yml` file and performs the following tasks:
 
-The CircleCI configuration and settings can be found in the `.circleci` directory of this repository. The configuration file `.circleci/config.yml` defines the build steps, dependencies, and test execution process. 
+1. **Install Dependencies:**
+    - The pipeline runs on a Docker container using the `cimg/base:stable` image.
+    - It updates package lists and installs required packages (e.g., Ninja, Clang, LLVM, lcov, and CMake).
+    - It also clones and bootstraps [vcpkg](https://github.com/microsoft/vcpkg) to install GTest.
 
+2. **Configure the Build:**
+    - Configures the project using CMake with the Ninja generator.
+    - The build is set to **Debug** mode and utilizes Clang/Clang++ as the compilers, with the toolchain specified via vcpkg.
+
+3. **Build the Project:**
+    - Uses Ninja to compile the project.
+
+4. **Run Tests in Parallel:**
+    - Executes tests concurrently using CTest.
+    - Saves test results as JUnit XML files.
+    - Uses the `store_test_results` option to enable detailed test reporting in the CircleCI Tests tab.
+
+5. **Generate Code Coverage Report:**
+    - Merges coverage profiles.
+    - Exports the coverage data in lcov format.
+    - Generates an HTML report using GenHTML.
+
+6. **Store Artifacts:**
+    - Archives test results and coverage reports for later review.
 
 ## License
 
-This project is licensed under the MIT License 
+This project is licensed under the MIT License. See LICENCE.txt for details.
 
 
   
