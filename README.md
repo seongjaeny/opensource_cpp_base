@@ -65,8 +65,9 @@ cd ..
 
 [Pre-Commit](https://pre-commit.com/) is a framework for managing and maintaining multi-language pre-commit hooks. It helps ensure code quality by running linters and formatters before commits. To customize the pre-commits edit the `.pre-commit-config.yaml` file
 
+The pre-commits are currently only configure to run clang-format on all changed files. 
 
-To install and set up Pre-Commit, follow these steps:
+Currently, the pre-commit hooks are configured to run `clang-format` on all changed files to ensure consistent code formatting before commits.
 
 ```sh
 pre-commit install
