@@ -1,5 +1,4 @@
 #include <gtest/gtest.h>
-
 #include "Notifier.h"
 
 TEST(NotifierTest, NotifyWhenExceedsThreshold) {

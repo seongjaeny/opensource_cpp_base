@@ -2,8 +2,8 @@
 #define NOTIFIER_H
 
 class Notifier {
-   public:
+public:
     bool notify(double result, double threshold);
 };
 
-#endif  // NOTIFIER_H
+#endif // NOTIFIER_H
