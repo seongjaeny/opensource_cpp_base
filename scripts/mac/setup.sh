@@ -9,6 +9,7 @@ check_command() {
 check_command cmake cmake
 check_command ninja ninja
 check_command clang-format clang-format
+check_command pre_commit pre-commit
 
 
 echo "Checking Clang installation..."
