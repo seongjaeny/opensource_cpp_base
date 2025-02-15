@@ -9,7 +9,7 @@ This repository provides a basic template for starting a new C++ project.
 This repository provides a basic template for starting a new C++ project. It includes a structured directory layout, a CMake build system, and example source files.
 
 
-## Dependencies
+## Dependencies and Features
 
 - **Compiler/Interpreter**: Clang
 - **Testing Framework**: Google Test
