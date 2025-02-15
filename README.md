@@ -25,7 +25,7 @@ Build instructions for linux machines
 
 ### Downloading Dependencies
 
-```
+```sh
 sudo apt-get update
 sudo apt-get install -y ninja-build clang llvm lcov curl python3
 sudo ln -sf $(which llvm-cov) /usr/bin/gcov            
