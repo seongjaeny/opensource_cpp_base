@@ -44,11 +44,13 @@ jobs:
             ninja
 
       - run:
-          name: Run Tests
+          name: Run Tests in Parallel
           command: |
             cd build
             export LLVM_PROFILE_FILE="default-%p.profraw"
-            ctest -T Test --output-on-failure --no-compress-output --output-junit junit.xml 
+            mkdir -p test-results
+            TEST_FILES=$(ctest -N | grep "Test #" | awk '{print $3}')
+            echo "$TEST_FILES" | tr ' ' '\n' | xargs -I{} -P 4 sh -c 'ctest -R "{}" --output-on-failure --no-compress-output --output-junit "test-results/junit-{}.xml"'
 
       - run:
           name: Generate Coverage Report
@@ -63,7 +65,7 @@ jobs:
 
 
       - store_test_results:
-          path: build/junit.xml
+          path: build/test-results
 
       - store_artifacts:
           path: build/coverage_report
