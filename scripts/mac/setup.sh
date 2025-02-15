@@ -11,6 +11,9 @@ check_command ninja ninja
 check_command clang-format clang-format
 check_command pre_commit pre-commit
 
+echo "Installing pre-commit hooks..."
+pre-commit install
+
 
 echo "Checking Clang installation..."
 if ! command -v clang &> /dev/null; then
