@@ -1,4 +1,5 @@
 #include <gtest/gtest.h>
+
 #include "Logger.h"
 #include "Notifier.h"
 

@@ -1,4 +1,5 @@
 #include <gtest/gtest.h>
+
 #include "Calculator.h"
 #include "Logger.h"
 
@@ -7,7 +8,7 @@ TEST(IntegrationTest, CalculatorAndLogger) {
     Logger logger;
 
     double a = 15.0, b = 7.0;
-    double result = calc.subtract(a, b); // 15 - 7 = 8
+    double result = calc.subtract(a, b);  // 15 - 7 = 8
 
     logger.log("Subtraction result: " + std::to_string(result));
 
