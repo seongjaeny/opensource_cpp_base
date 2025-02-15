@@ -67,6 +67,7 @@ vcpkg_installed/
 vcpkg/buildtrees/
 vcpkg/downloads/
 vcpkg/packages/
+vcpkg
 
 # OS Specific Files and Temporary Files
 .DS_Store
