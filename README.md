@@ -108,6 +108,14 @@ ctest -T Test
 cd .. 
 ```
 
+
+## Setting Up CI/CD
+
+This repository uses [CircleCI](https://circleci.com/) for continuous integration and deployment. CircleCI automates the build and testing process to ensure the project remains stable.
+
+The CircleCI configuration and settings can be found in the `.circleci` directory of this repository. The configuration file `.circleci/config.yml` defines the build steps, dependencies, and test execution process.
+
+
 ## License
 
 This project is licensed under the MIT License 
