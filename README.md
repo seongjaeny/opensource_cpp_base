@@ -20,35 +20,32 @@ This repository provides a basic template for starting a new C++ project. It inc
 
 ## Build Instructions 
 
-These instructions are for macOS; for other systems, please refer to platform-specific documentation to find equivalent commands. 
-
-Ensure you have the following installed Xcode Command Line Tools, which includes clang
-```sh
-xcode-select --install
-```
-
-Install [Homebrew](https://docs.brew.sh/Installation) if you do not have it already installed. Homebrew is a package manager for macOS and Linux that simplifies the installation of software. Follow the link for installation guide and more information. 
-
-The macOS commands are already included in the repository. Run the following scripts in the home directory to set up and build the project:
-
-```sh
-./scripts/mac/setup.sh
-./scripts/mac/build.sh
-```
+Build instructions for linux machines
 
 
 ### Downloading Dependencies
 
 ```
-brew install cmake ninja clang-format pre_commit
+sudo apt-get update
+sudo apt-get install -y ninja-build clang llvm lcov curl python3
+sudo ln -sf $(which llvm-cov) /usr/bin/gcov            
+sudo apt-get install -y software-properties-common lsb-release wget
+wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc | sudo apt-key add -
+sudo apt-add-repository 'deb https://apt.kitware.com/ubuntu/ focal main'
+sudo apt-get update
+sudo apt-get install -y cmake
+python3 -m pip install pre-commit
+cmake --version
 ```
 
-downloading vcpkg is a package manager for C++ that simplifies the process of managing dependencies. To set up vcpkg, run the following commands in the home directory:
+Downloading Vcpkg: 
+
+Vcpkg is a package manager for C++ that simplifies the process of managing dependencies. To set up vcpkg, run the following commands in the home directory:
 
 
 ```sh
 git clone https://github.com/microsoft/vcpkg.git
-cd vcpkg 
+cd vcpkg
 ./bootstrap-vcpkg.sh
 ./vcpkg install gtest
 cd ..
@@ -76,11 +73,11 @@ mkdir -p build
 cd build
 
 cmake -G Ninja \
-      -DCMAKE_BUILD_TYPE=Debug \
-      -DCMAKE_TOOLCHAIN_FILE=../vcpkg/scripts/buildsystems/vcpkg.cmake \
-      -DCMAKE_C_COMPILER=$(xcrun --find clang) \
-      -DCMAKE_CXX_COMPILER=$(xcrun --find clang++) \
-      .. 
+    -DCMAKE_BUILD_TYPE=Debug \
+    -DCMAKE_TOOLCHAIN_FILE=${CIRCLE_WORKING_DIRECTORY}/vcpkg/scripts/buildsystems/vcpkg.cmake \
+    -DVCPKG_TARGET_TRIPLET=x64-linux \
+    -DCMAKE_C_COMPILER=/usr/bin/clang -DCMAKE_CXX_COMPILER=/usr/bin/clang++ \
+    ..
 
 cd ..
 ```
@@ -101,6 +98,23 @@ ctest -T Test
 cd .. 
 ```
 
+
+### Mac os 
+These instructions are for macOS;
+
+Ensure you have the following installed Xcode Command Line Tools, which includes clang
+```sh
+xcode-select --install
+```
+
+Install [Homebrew](https://docs.brew.sh/Installation) if you do not have it already installed. Homebrew is a package manager for macOS and Linux that simplifies the installation of software. Follow the link for installation guide and more information. 
+
+The macOS commands are already included in the repository. Run the following scripts in the home directory to set up and build the project:
+
+```sh
+./scripts/mac/setup.sh
+./scripts/mac/build.sh
+```
 
 ## Setting Up CI/CD
 
