@@ -8,13 +8,6 @@ This repository provides a basic template for starting a new C++ project.
 
 This repository provides a basic template for starting a new C++ project. It includes a structured directory layout, a CMake build system, and example source files.
 
-## Features
-
-- Organized project structure
-- CMake support for cross-platform builds
-- Sample C++ source code
-- Unit testing setup (GoogleTest)
-- `.gitignore` for common C++ project files
 
 ## Dependencies
 
