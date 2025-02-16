@@ -43,12 +43,14 @@ jobs:
             cd build
             ninja
 
+
       - run:
-          name: Run Tests
+          name: Run Tests in Parallel
           command: |
             cd build
             export LLVM_PROFILE_FILE="default-%p.profraw"
-            ctest -T Test --output-on-failure --no-compress-output --output-junit junit.xml 
+            ctest -j $(nproc) --output-on-failure --no-compress-output --output-junit junit.xml 
+
 
       - run:
           name: Generate Coverage Report
