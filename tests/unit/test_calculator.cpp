@@ -2,18 +2,23 @@
 #include "Calculator.h"
 
 TEST(CalculatorTest, Add) {
-    Calculator calc;
-    EXPECT_DOUBLE_EQ(calc.add(2.0, 3.0), 5.0);
+    Calculator calc(0);  // seed=0
+    EXPECT_EQ(calc.add(2, 3), 5);
+    EXPECT_EQ(calc.add(-1, 1), 0);
+    EXPECT_EQ(calc.add(0, 0), 0);
 }
 
 TEST(CalculatorTest, Subtract) {
-    Calculator calc;
-    EXPECT_DOUBLE_EQ(calc.subtract(5.0, 3.0), 2.0);
+    Calculator calc(0);
+    EXPECT_EQ(calc.subtract(5, 3), 2);
+    EXPECT_EQ(calc.subtract(0, 5), -5);
+    EXPECT_EQ(calc.subtract(3, 3), 0);
 }
 
 TEST(CalculatorTest, Multiply) {
-    Calculator calc;
-    EXPECT_DOUBLE_EQ(calc.multiply(2.0, 3.0), 6.0);
+    EXPECT_EQ(Calculator::multiply(2, 3), 6);
+    EXPECT_EQ(Calculator::multiply(-2, 3), -6);
+    EXPECT_EQ(Calculator::multiply(0, 3), 0);
 }
 
 int main(int argc, char** argv) {

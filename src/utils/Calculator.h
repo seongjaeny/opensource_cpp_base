@@ -1,22 +1,18 @@
-#ifndef CALCULATOR_H
-#define CALCULATOR_H
+#pragma once
 
 #include <memory>
-#include <functional>
 
 class Calculator {
 public:
-    enum CalculatorType { DEFAULT, CALCULATOR2, CALCULATOR3, CALCULATOR4, CALCULATOR5 };
+    Calculator(int seed);
+    ~Calculator();
 
-    static std::unique_ptr<Calculator> create(CalculatorType type, int seed = 0);
+    int add(int x, int y) const;
+    int subtract(int x, int y) const;
 
-    virtual ~Calculator() = default;
-    virtual double add(double a, double b) const = 0;
-    virtual double subtract(double a, double b) const = 0;
-    virtual double multiply(double a, double b) const = 0;
+    static int multiply(int x, int y);
 
-    //
-    virtual void set_add_override(std::function<double(double, double)> func) {}
+private:
+    struct Impl;
+    std::unique_ptr<Impl> pimpl_;
 };
-
-#endif
