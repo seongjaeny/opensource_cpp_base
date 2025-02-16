@@ -14,7 +14,7 @@ This repository provides a basic template for starting a new C++ project. It inc
 
 ## Build Instructions 
 
-Build instructions for linux machines
+Build instructions for linux machines.
 
 
 ### Downloading Dependencies
